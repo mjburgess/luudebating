@@ -41,3 +41,12 @@ WEB-INF
 .project
 .cache
 .classpath
+
+#play
+war/luudebating/logs
+war/luudebating/project/project
+war/luudebating/project/target
+war/luudebating/target
+war/luudebating/tmp
+war/luudebating/.history
+war/luudebating/dist

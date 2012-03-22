@@ -4,11 +4,11 @@ import javax.servlet.http.{
   HttpServlet, HttpServletRequest, HttpServletResponse
 }
 
-class ExampleServlet extends HttpServlet
-{
+
+class TemplateServlet  extends HttpServlet {
   override def doGet(req : HttpServletRequest, resp : HttpServletResponse) {
     resp.setContentType("text/plain")
-    Eudc.example().foreach(resp.getWriter().print(_))
+    resp.getWriter().print("Hello World: {{content}}")
   }
     
     override def doPost(req: HttpServletRequest, resp: HttpServletResponse) =
