@@ -6,4 +6,5 @@ object Eudc {
 	    yield Competitor(75, 75, 100, x, y)
 	  ).toList
   }	
+  
 }

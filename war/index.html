@@ -2,6 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
+    <meta http-equiv="cache-control" content="no-cache">
     <title>Leeds Debating Union</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Leeds Debating Union: a community promoting debate and free-speech world-wide.">
@@ -15,6 +16,12 @@
       .sidebar-nav {
         padding: 9px 0;
       }
+      .info {
+      	padding: 0 0 2em 0;
+      }
+      .info p {
+		font-size: 1.15em      
+      }
     </style>
     <link href="/assets/css/bootstrap-responsive.css" rel="stylesheet">
     <!--[if lt IE 9]>
@@ -26,17 +33,25 @@
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="/assets/ico/apple-touch-icon-57-precomposed.png">
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="/assets/js/jquery.ba-hashchange.min.js"></script>
     <script src="/assets/js/mustache.js"></script>	
     <script src="/assets/js/bootstrap.min.js"></script>
     <script src="/assets/js/ldu.js"></script>
+    <script src="/assets/js/views.ldu.js"></script>
+    <script src="/assets/js/controllers.ldu.js"></script>
     <script type="text/javascript">	
 		 $(document).ready(function() {
-			LDU.render('index');
+			LDU.Dispatch.route(LDU.Router.hashRouter);
+			LDU.Dispatch.to('sidebar');
+			
+			$(window).hashchange(function () { 
+				LDU.Dispatch.route(LDU.Router.hashRouter);
+			});
         });
 	</script>
   </head>
 
-  <body>
+    <body>
 
     <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
@@ -58,38 +73,11 @@
         </div>
       </div>
     </div>
-	<div id="main"><p id="message">Message: </p></div>
+
     <div class="container-fluid">
       <div class="row-fluid">
-        <div class="span3">
-        <div><img src="/assets/img/logo.jpg" width="280px"/></div>
-          <div class="well sidebar-nav">
-            <ul class="nav nav-list">
-              <li class="nav-header">Information</li>
-              <li><a href="#">The Committee</a></li>
-              <li><a href="#">Leeds Open (IV)</a></li>
-              <li><a href="#">Events Calendar</a></li>
-              <li><a href="#">News and Achievements</a></li>
-              <li><a href="#">Schools and Community</a></li>
-              <li class="nav-header">Next Steps</li>
-              <li><a href="#">Join LDU</a></li>
-              <li><a href="#">Contact Us</a></li>
-              <li class="nav-header">For Members</li>
-              <li><a href="#">Socials</a></li>
-              <li><a href="#">Training</a></li>
-              <li><a href="#">Resources</a></li>
-              <li><a href="#">Funding Request</a></li>
-              <li><a href="#">Competition Registration</a></li>
-              <li><a href="#">Suggestions and Feedback</a></li>
-            </ul>
-          </div>
-          <div style="padding:1em">
-	          <div style="padding:1em"><a href="https://www.facebook.com/groups/leedsdebatingunion/"><img src="/assets/img/fb.jpg" /></a></div>
-	          <div style="padding:1em"><a href="http://www.leedsuniversityunion.org.uk/"><img src="/assets/img/luu.png" /></a></div>
-	          <div style="padding:1em"><a href="http://www.britishdebate.com/"><img src="/assets/img/bd.jpg" /></a></div>
-          </div>
-        </div>
-        
+		<div id="side"></div>
+        <div id="main" style="margin: 0 0 0 18%"></div>
       </div>
 
       <hr>

@@ -1,0 +1,47 @@
+	<div class="page-header">
+		<h1>Selection Ranking</h1>
+	</div>
+
+	<div class="span3">
+		<h2>Input Information</h2>
+		<p><strong>Tab Median</strong> is the number of speaker points you get 50% of the time.</p>
+		<p><strong>Trial Average</strong> is the average number of speaker points you get at the trial.</p>
+		<p><strong>Consistency</strong> is how much you vary as a speaker. 
+		If you vary about two speaks from your average throughout a day, you have a consistency of 80; if you vary 3 speaks you have 70 and so on..</p>
+		<p><strong>Service</strong> services performed on behalf of the society.</p>
+		<p><strong>Reputation</strong> the extent to which you will enhance the reputation of LDU: 
+		if you are offensive and arrogant you get a low rep, if you are kind and polite you get a high rep.</p>
+	</div>
+		<div class="span3">
+		<form id="ranker" action="">
+			<label for="median">Tab Median</label><input type="text" name="median" />
+			<label for="median">Trial Average</label><input type="text" name="average" />
+			<label for="median">Consistency</label><input type="text" name="consistency" />
+			<label for="median">Service</label><input type="text" name="service" />
+			<label for="median">Reputation</label><input type="text" name="reputation" />
+			<div><input type="submit" name="Rank" /></div>
+		</form>
+	</div>
+	<div class="span3">
+		<h2>Output Information</h2>
+		<p><strong>Rank</strong> is out of 100; rank is shifted so that all 75 inputs produce a rank of 75. The rank is very compact between 
+		"usual" input ranges, so that speakers may find themselves differentiated by one point or less.</p>
+		<p><strong>Bracket: </strong>Speakers are aggressively grouped in brackets of 0.5 points for the purposes of funding and differentiation. 
+		Bracket indicates your <em>likely</em> bracket, indicated by the number of 0.5 steps from 70. Real brackets are calculated from the number 
+		of steps above the lowest rank recorded.</p>
+		<p><strong>Merit</strong> is the contribution from your Median/Average/Consistency</p>
+		<p><strong>Goodness</strong> is the contribution from your Service/Reputation</p>
+	</div>	
+
+	<div id="rankResults" class="span9"></div>
+	
+	
+<script type="text/javascript">
+$('#ranker').submit(function() {
+	var data = [];
+    $.each($('#ranker').serializeArray(), function (i, field) {data[i] = field.value;});
+    LDU.Request.set('rankResults', data);
+    LDU.Dispatch.to('rankResults');
+    return false;
+});
+</script>
