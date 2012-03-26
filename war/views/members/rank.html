@@ -19,7 +19,7 @@
 			<label for="median">Consistency</label><input type="text" name="consistency" />
 			<label for="median">Service</label><input type="text" name="service" />
 			<label for="median">Reputation</label><input type="text" name="reputation" />
-			<div><input type="submit" name="Rank" /></div>
+			<div><input id="rankerSubmit" type="submit" name="Rank" /></div>
 		</form>
 	</div>
 	<div class="span3">
@@ -37,11 +37,6 @@
 	
 	
 <script type="text/javascript">
-$('#ranker').submit(function() {
-	var data = [];
-    $.each($('#ranker').serializeArray(), function (i, field) {data[i] = field.value;});
-    LDU.Request.set('rankResults', data);
-    LDU.Dispatch.to('rankResults');
-    return false;
-});
+$('#ranker').submit(LDU.ViewHelper.formDispatch('ranker', 'dynamic.rank', false));
+$('#rankerSubmit').click(function() { $('#rankResults').html('<img src="/assets/img/ajax-loader.gif"/>'); });
 </script>

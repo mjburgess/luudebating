@@ -33,14 +33,14 @@ object LduAction {
 	}
 	
 	def default(endpoint: String, parameters: List[String])(req: Request, resp: Response) {
-	    val json = ("error" -> "no such action exists");    	
+	    val json = ("error" -> "no such action exists")
 		resp.setContentType("text/plain")
 	    resp.getWriter().print(compact(render(json)))
 	}
 	
 	def apply(endpoint: String, parameters: List[String]): (Request, Response) => Unit = endpoint match {
-	  case "api.test" => apiTest(endpoint, parameters)
-	  case "rankResults" => rankResults(endpoint, parameters)
-	  case _ => default(endpoint, parameters)
+	  case "dynamic.api_test" 	=> apiTest(endpoint, parameters)
+	  case "dynamic.rank" 		=> rankResults(endpoint, parameters)
+	  case _ 					=> default(endpoint, parameters)
 	}
 }

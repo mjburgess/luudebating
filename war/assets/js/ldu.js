@@ -1,6 +1,6 @@
 var LDU = (function() {
 	function getTemplate (endPoint, callback) {
-		$.get('/views/' + endPoint + '.html', callback); 
+		$.get('/views/' + endPoint.replace('.', '/') + '.html', callback); 
 	}
 	
 	function getData(endPoint, callback) {
@@ -14,14 +14,22 @@ var LDU = (function() {
 	
 	function recieveTemplate(action) {
 		return function (template) {
-			getData(action, function (data) {
+			setTimeout(function () {getData(action, function (data) {
 				var view = LDU.View[action];
 				view.template = template;
 				view.vars = data; 
-				view.html = Mustache.render(view.template , view.vars)
+				view.html = Mustache.render(view.template , view.vars);
 				view();
-			});
-		}	
+			}) }, LDU.Request.delay);
+		};
+	}
+	
+	function formToArray(id) {
+		var data = [];
+	    
+		$.each($('#' + id).serializeArray(), function (i, field) { data[i] = field.value; });
+			
+		return data;
 	}
 	
 	return {
@@ -39,13 +47,13 @@ var LDU = (function() {
 			defaultRoute: 'index',
 			
 			hashRouter: function () { 
-		    	var loc = location.hash.substring(1); 
+		    	loc = location.hash.substring(1); 
 		    	return loc && loc in LDU.View ? loc : LDU.Router.defaultRoute; 
 		   	}
 		},
 		
 		Request: {
-			new: function(name, params) {
+			add: function(name, params) {
 				LDU.Request[name] = params;
 			},
 			
@@ -55,12 +63,14 @@ var LDU = (function() {
 			
 			set: function (name, values) {
 				LDU.Request[name] = values;
-			}
+			},
+			
+			delay: 200
 		},
 		
 		View: {			
-			new: function (name, renderFnc) {
-				LDU.View[name] 	    = function () { return renderFnc.call(LDU.View[name]); }
+			add: function (name, renderFnc) {
+				LDU.View[name] 	    = function () { return renderFnc.call(LDU.View[name]); };
 				LDU.View[name].html     = ''; 
 				LDU.View[name].template = ''; 
 				LDU.View[name].vars		= {};
@@ -75,8 +85,19 @@ var LDU = (function() {
 			}
 		},
 		
+		ViewHelper: {
+			formDispatch: function(id, action, rtn) {
+				return function () {
+				    LDU.Request.set(action, formToArray(id));
+				    LDU.Dispatch.to(action);
+				    
+				    return rtn;
+				};
+			}
+		},
+		
 		Controller: {
-			new: function (name, actionFnc) {
+			add: function (name, actionFnc) {
 				LDU.Controller[name] = actionFnc;
 			},
 			
@@ -84,7 +105,7 @@ var LDU = (function() {
 				if(name in LDU.Controller) {
 					return LDU.Controller[name];
 				} else {
-					return function () {}
+					return function () {};
 				}
 			},
 			
@@ -99,5 +120,5 @@ var LDU = (function() {
 				
 			}
 		}
-	}
+	};
 }());

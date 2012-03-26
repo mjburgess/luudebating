@@ -5,29 +5,34 @@
 		}
 	}
 	
-	LDU.View.new('index', 		replace('main'));
-	LDU.View.new('about', 	    replace('main'));
-	LDU.View.new('committee', 	replace('main'));
-	LDU.View.new('community',   replace('main'));
-	LDU.View.new('competition', replace('main'));
-	LDU.View.new('contact',    	replace('main'));
-	LDU.View.new('events',     	replace('main'));
-	LDU.View.new('feedback',   	replace('main'));
-	LDU.View.new('fundingreq', 	replace('main'));
-	LDU.View.new('join',      	replace('main'));
-	LDU.View.new('news',      	replace('main'));
-	LDU.View.new('openiv',    	replace('main'));
-	LDU.View.new('resources', 	replace('main'));
-	LDU.View.new('socials',  	replace('main'));
-	LDU.View.new('training',  	replace('main'));
-	LDU.View.new('ync',  		replace('main'));
-	LDU.View.new('rank',  		replace('main'));
-	LDU.View.new('rankResults', replace('rankResults'));
+	LDU.View.add('index', 		replace('main'));
+	LDU.View.add('sidebar',	    replace('side'));
 	
-	LDU.View.new('api.test', replace('main'));
+	LDU.View.add('info.about', 	  	    replace('main'));
+	LDU.View.add('info.committee',	 	replace('main'));
+	LDU.View.add('info.community',		replace('main'));
+	LDU.View.add('info.join',      		replace('main'));
+	LDU.View.add('info.news',      		replace('main'));
+	LDU.View.add('info.contact',    	replace('main'));
+	LDU.View.add('info.events',     	replace('main'));
 	
-	LDU.View.new('sidebar', replace('side'));
+	LDU.View.add('members.competition', replace('main'));
+	LDU.View.add('members.feedback',   	replace('main'));
+	LDU.View.add('members.fundingreq', 	replace('main'));
+	LDU.View.add('members.resources', 	replace('main'));
+	LDU.View.add('members.socials',  	replace('main'));
+	LDU.View.add('members.rank',  		replace('main'));
+	LDU.View.add('members.eudc',  		replace('main'));
 	
-	LDU.Request.new('api.test', ['foo', 123]);
-	LDU.Request.new('rankResults', []);
-}());
+	LDU.View.add('friends.openiv',    	replace('main'));
+	LDU.View.add('friends.ync',  		replace('main'));
+	
+	LDU.View.add('school.sghs',  		replace('main'));
+	
+	LDU.View.add('dynamic.rank', 		replace('rankResults'));
+	LDU.View.add('dynamic.api_test', 	replace('main'));
+	
+	LDU.Request.add('dynamic.api_test',    ['foo', Math.random()]);
+	LDU.Request.add('dynamic.rank', 	   []);
+}())
+;
